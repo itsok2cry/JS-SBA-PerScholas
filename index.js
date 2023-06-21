@@ -1,11 +1,14 @@
 const attackBtn = document.querySelector('#attackBtn')
 const retreatBtn = document.querySelector('#retreatBtn')
-  
-  
+   
 const ussAssembly = {
     hull:20,
     firepower:5,
     accuracy:.7,
+    attack(){
+        console.log(`The Uss Assembly has attacked AlienShip ${aliensRemaining}!`)
+
+    },
     onHit(){
         console.log(`You have been hit and lost ${alienShip.firepower} hp!`);
          this.hull -= alienShip.firepower
@@ -22,32 +25,32 @@ let maxFirepower = 4;
 let minAccuracy = .6;
 let maxAccuracy = .8;
 
-
 function createAlienShip(){
 const alienShip = {
      hull: Math.floor(Math.random() * (maxHull - minHull + 1)) + minHull,
      firepower: Math.floor(Math.random() * (maxFirepower - minFirepower + 1)) + minFirepower,
      accuracy: Math.random() * (maxAccuracy - minAccuracy) + minAccuracy,
+     attack(){
+        console.log(`AlienShip ${aliensRemaining} has attacked!`)
+
+    },
+
     onHit(){
        
             console.log(`Alien Ship has been hit and lost ${ussAssembly.firepower} hp!`);
             this.hull -= ussAssembly.firepower
             console.log(`Alien ship hull hp is : ${this.hull}`)
-        }
-        
+        }  
     }
     return alienShip;
 }
  let alienShip = createAlienShip();
 
- console.log(alienShip)
-///Game Round///
-
+        ///Game Round///
 function attackAlienShip() {
-    // Player attacks the alien ship
-    console.log('You have attacked');
+    ussAssembly.attack();
     
-    // Calculate attack outcome based on random chance
+    //Chance of successful Attack
     const attackSuccess = Math.random() < ussAssembly.accuracy;
   
     if (attackSuccess) {
@@ -55,30 +58,29 @@ function attackAlienShip() {
       alienShip.onHit();
   
       // Check if the alien ship is destroyed
-      if (--alienShip.hull < 0) {
+      if (alienShip.hull <= 0) {
         console.log("You destroyed the alien ship!");
-        
-  
-        // Check if there are more aliens remaining
-        if (aliensRemaining === 0) {
-          console.log("Congratulations! You destroyed all the aliens. You win!");
-          return;
-        } else {
-          // Create a new alien ship for the next attack
-          alienShip = createAlienShip();
-          aliensRemaining -= 1
-          console.log("Prepare for the next attack on a new alien ship!");
-          return;
-        }}
+        aliensRemaining -= 1
+         // Check if there are more aliens remaining
+         if (aliensRemaining <= 0) {
+            console.log("Congratulations! You destroyed all the aliens. You have saved the world!");
+            return;}
+            // if player attack again creates new alien ship
+        console.log(`You can choose to attack again or retreat. Aliens remeaining : ${aliensRemaining} `)
+        alienShip = createAlienShip();
+        console.log('Next alien ship stats are :')
+        console.log(alienShip)
+        return;
+      }
       
     } else {
-      console.log("Your attack on the alien ship failed.");
+      console.log("Your attack has missed the alien ship! ");
     }
   
-    // Alien ship attacks back
-    console.log('Alien ship has attacked');
+    // Alien ship attack //
+    alienShip.attack();
     
-    // Calculate attack outcome based on random chance
+    // Chance to be hit by alien
     const alienAttackSuccess = Math.random() < alienShip.accuracy
   
     if (alienAttackSuccess) {
@@ -91,7 +93,7 @@ function attackAlienShip() {
         return;
       }
     } else {
-      console.log("The alien ship's attack failed.");
+      console.log("The alien ship's attack has missed!");
     }
 
     console.log('Do you wish to attack again or retreat? ')
@@ -106,13 +108,7 @@ function attackAlienShip() {
   function handleRetreatClick() {
     console.log("You chose to retreat. Game over.");
   }
-
-
-
-
-
-
-
+  //Event listeners for buttons
 attackBtn.addEventListener('click', handleAttackClick);
 retreatBtn.addEventListener('click', handleRetreatClick);
   
