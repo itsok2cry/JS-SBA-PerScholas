@@ -1,0 +1,10 @@
+body{
+    background-image: url(images/spacebg.jpg)
+
+}
+
+h1{
+    color: yellow;
+    text-align: center;
+    font-size: 50px;
+}
