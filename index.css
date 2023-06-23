@@ -1,0 +1,29 @@
+body{
+    background-image: url(images/spacebg.jpg);
+}
+img{
+    height: 200px;
+    width: 300px;
+}
+h1{
+    color: yellow;
+    text-align: center;
+    font-size: 50px;
+}
+.alienNum{
+    color: yellow;
+    font-size: 25px;
+}
+
+ #gameLog{
+    color: yellow;
+    font-size: 20px;
+    white-space: pre-line;
+}
+tbody {
+    font-weight: bold;
+  }
+  .table td, .table th {
+    padding: 8px;
+    border-bottom: 1px solid;
+  }
